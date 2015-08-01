@@ -36,6 +36,12 @@
 >>> 
 >>> Application -- 告诉我现在谁用java做这个，妈蛋现在只会这个有木有
 
+>> **Project** -- 项目有关
+>>> 
+>>> Maven
+>>> 
+>>> Git  
+
 >> **TO BE CONTINUED** -- OP
 
 >> **README.md** -- 嘿我去，后缀你怎么能骂人呢！ca
