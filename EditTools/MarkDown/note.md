@@ -1,5 +1,15 @@
+Markdown Edit in Sublime
+=====================
+- *在sublime中配置Markdown editing与Markdown preview*
+- *Markdown的格式*
 
-=========================== 
+---
+
+## What is Markdown
+本菜鸡也是偶尔看到人家写的README.md非常有意思，然后发现竟然有Markdown这样一个东西，表示颇为感兴趣。Markdown说白了就是一类似与html的标记语言，能使普通文本具有一定的格式显示在page上（实际上还是会将md文件转为html的）
+
+
+## Sublime 设置
 
 This is a sample markdown file to help you write Markdown quickly :)
 
