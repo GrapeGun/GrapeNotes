@@ -4,12 +4,20 @@ Markdown Edit in Sublime
 - *Markdown的格式*
 
 ---
+### First Note
+这算是第一个note了，先来Markdown，原因很简单，之后很多笔记都是要用这个的，还有Sublime，这两个是必须的。
 
-## What is Markdown
-本菜鸡也是偶尔看到人家写的README.md非常有意思，然后发现竟然有Markdown这样一个东西，表示颇为感兴趣。Markdown说白了就是一类似与html的标记语言，能使普通文本具有一定的格式显示在page上（实际上还是会将md文件转为html的）
+### What is Markdown
+本菜鸡也是偶尔看到人家写的README.md非常有意思，然后发现竟然有Markdown这样一个东西，表示颇为感兴趣。Markdown说白了就是一类似与html的标记语言，能使普通文本具有一定的格式显示在page上（实际上还是会将md文件转为html的），如下图，
+
+![md2html](https://github.com/GrapeGun/GrapeNotes/raw/master/EditTools/MarkDown/images/md2html.pn
+
+在使用Markdown preview在浏览器中浏览时，大概是使用了下面红色方框中的一个js，将md转成了html。
 
 
-## Sublime 设置
+### 在Sublime中编辑Markdown
+这里就稍微提一下，安装Markdown editing 与Markdown preview即可，具体设置我会在Sublime的note.md再做笔记。
+
 
 This is a sample markdown file to help you write Markdown quickly :)
 
