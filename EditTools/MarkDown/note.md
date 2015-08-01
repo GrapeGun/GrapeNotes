@@ -10,7 +10,7 @@ Markdown Edit in Sublime
 ### What is Markdown
 本菜鸡也是偶尔看到人家写的README.md非常有意思，然后发现竟然有Markdown这样一个东西，表示颇为感兴趣。Markdown说白了就是一类似与html的标记语言，能使普通文本具有一定的格式显示在page上（实际上还是会将md文件转为html的），如下图，
 
-![md2html](https://github.com/GrapeGun/GrapeNotes/raw/master/EditTools/MarkDown/images/md2html.pn
+![md2html](https://github.com/GrapeGun/GrapeNotes/raw/master/EditTools/MarkDown/images/md2html.png)
 
 在使用Markdown preview在浏览器中浏览时，大概是使用了下面红色方框中的一个js，将md转成了html。
 
