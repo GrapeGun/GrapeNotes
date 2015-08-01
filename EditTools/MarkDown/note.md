@@ -16,27 +16,35 @@ Markdown Edit in Sublime
 
 
 ### 在Sublime中编辑Markdown
-这里就稍微提一下，安装Markdown editing 与Markdown preview即可，具体设置我会在Sublime的note.md再做笔记。
+这里就稍微提一下，安装Markdown editing 与Markdown preview即可，具体设置我会在Sublime的[note.md](https://github.com/GrapeGun/GrapeNotes/blob/master/EditTools/Sublime/note.md)再做笔记。
+我刚刚接触sublime，感觉比vim好用不少，绝对的编辑神器
+
+---
+
+## 文本格式
+这个文档里其实已经用到很多了。
+比如 
+* 斜体 *我是一个斜体* _我也是一个斜体_
+* 粗体 **我是一个粗体** __我也是一个粗体__
+* 粗斜体 ***我是一个粗斜体***
+* 阴影 `我是一个阴影` 
+* 表格 注意第一行第二行的对齐方式以及缩进要小于一个Tab的空格数             
+
+   | col1 | col2 | col3 |
+   |------|------|------|
+   |aaa | bbb | ccc | 
+   |ddd | eee | fff |
+   |ggg | hhh | iii |
 
 
-This is a sample markdown file to help you write Markdown quickly :)
 
-If you use the fabulous [Sublime Text 2/3 editor][ST] along with the [Markdown Preview plugin][MarkdownPreview], open your ST2 Palette with `CMD+⇧+P` then choose `Markdown Preview in browser` to see the result in your browser.
+### 缩进
+见[README.md](https://github.com/GrapeGun/GrapeNotes/blob/master/README.md),我用这个做了目录结构。那个符号是<kbd>></kbd>(即Shift+,)
+> 缩进一
+>> 缩进二
 
-## Text basics
-this is *italic* and this is **bold** .  another _italic_ and another __bold__
-
-this is `important` text. and percentage signs : % and `%`
-
-This is a paragraph with a footnote (builtin parser only). [^note-id]
-
-Insert `[ TOC ]` without spaces to generate a table of contents (builtin parsers only).
-
-## Indentation
-> Here is some indented text
->> even more indented
-
-## Titles
+### 标题样式
+这个不多说了，最开始就只记住了这个而已。
 # Big title (h1)
 ## Middle title (h2)
 ### Smaller title (h3)
@@ -44,7 +52,12 @@ Insert `[ TOC ]` without spaces to generate a table of contents (builtin parsers
 ##### and so on (hX)
 ###### and so on (hX)
 
-## Example lists (1)
+### 列表
+这个也不多说了。
+
+ 1. list1
+ 2. list2
+ 3. list3
 
  - bullets can be `-`, `+`, or `*`
  - bullet list 1
@@ -58,38 +71,39 @@ Insert `[ TOC ]` without spaces to generate a table of contents (builtin parsers
  + bullet list 4
  * bullet list 5
 
-## Links
+### 链接
+前面也有过,再如：[baidu with a title](http://www.baidu.com/ "title") ,[baidu without a title](http://www.baidu.com/)
 
-This is an [example inline link](http://lmgtfy.com/) and [another one with a title](http://lmgtfy.com/ "Hello, world").
+另外，可以使用引用（引用一般放在文档末尾）：[reference emoji][emoji]
 
-Links can also be reference based : [reference 1][ref1] or [reference 2 with title][ref2].
+### 图片
+上面有，不写了，多一点的就是图片的title的方式，类似与上面链接的方法。
 
-References are usually placed at the bottom of the document
+### 代码段
+这个功能很好，在gfm扩展后的代码高亮很赞。下面是java一个代码段
 
-## Images
+原始方式 增加缩进即可 高亮不太好使，要设置`enable_highlight`=true
 
-A sample image :
+    public `class` HelloWorld() { 
+        public static void main(String[] args) {
+            System.out.println("HelloWorld!");
+        }
+    }
 
-![revolunet logo](http://www.revolunet.com/static/parisjs8/img/logo-revolunet-carre.jpg "revolunet logo")
+GFM方式，可设置语言
 
-As links, images can also use references instead of inline links :
+```java
+public class HelloWorld() {
+    public static void main(String[] args) {
+        System.out.println("HelloWorld!");
+    }
+}
+```
 
-![revolunet logo][revolunet-logo]
+### 数学公式
+这个是必不可少的。(这个东西有点小复杂，明天再搞)
 
-
-## Code
-
-It's quite easy to show code in markdown files.
-
-Backticks can be used to `highlight` some words.
-
-Also, any indented block is considered a code block.  If `enable_highlight` is `true`, syntax highlighting will be included (for the builtin parser - the github parser does this automatically).
-
-    <script>
-        document.location = 'http://lmgtfy.com/?q=markdown+cheat+sheet';
-    </script>
-
-## Math
+需要设置 `enable_mathjax`=true,
 
 When `enable_mathjax` is `true`, inline math can be included \\(\frac{\pi}{2}\\) $\pi$
 
@@ -312,4 +326,5 @@ This plugin and this sample file is proudly brought to you by the [revolunet tea
  [revolunet-logo]: http://www.revolunet.com/static/parisjs8/img/logo-revolunet-carre.jpg "revolunet logo"
  [gfm]: http://github.github.com/github-flavored-markdown/
  [emoji]: http://www.emoji-cheat-sheet.com/
+ [emoji with title]: http://www.emoji-cheat-sheet.com/
 
