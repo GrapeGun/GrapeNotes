@@ -12,7 +12,7 @@ Markdown Edit in Sublime
 
 ![md2html](https://github.com/GrapeGun/GrapeNotes/raw/master/EditTools/MarkDown/images/md2html.png)
 
-在使用Markdown preview在浏览器中浏览时，大概是使用了下面红色方框中的一个js，将md转成了html。
+在使用Markdown preview在浏览器中浏览时，大概是使用了下面红色方框中的一个js，将md转成了html（图中的js是用来解析数学公式的，在这个之前还有一个js，但是太快，总是截不到图）。
 
 
 ### 在Sublime中编辑Markdown
