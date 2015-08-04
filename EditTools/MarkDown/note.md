@@ -115,7 +115,7 @@ $$F(\omega) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} f(t) \, e^{ - i \ome
 
 \\[\sum_j \gamma_j^2/d_j\\]
 
-## About
+### About
 
 感谢 [revolunet team][revolunet] 提供的文档帮助.
 
