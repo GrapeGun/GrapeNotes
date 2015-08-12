@@ -36,8 +36,6 @@ Markdown Edit in Sublime
    |ddd | eee | fff |
    |ggg | hhh | iii |
 
-
-
 ### 缩进
 见[README.md](https://github.com/GrapeGun/GrapeNotes/blob/master/README.md),我用这个做了目录结构。那个符号是<kbd>></kbd>(即Shift+,)
 > 缩进一
