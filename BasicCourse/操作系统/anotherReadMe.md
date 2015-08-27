@@ -40,5 +40,8 @@
 
 >> **README.md** 
 
+
+this text if for sublime git , too(this is in the anothorReadMe.md)
+
  
 

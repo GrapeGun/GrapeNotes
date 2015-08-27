@@ -43,3 +43,5 @@
  
 反正还有一年的时间，要玩也要玩点有意思的。
 
+and this text if for sublime using git(this is in the web/README.md)
+
