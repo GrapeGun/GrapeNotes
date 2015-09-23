@@ -1,5 +1,7 @@
 SpringMVC(一)
 ===
+感谢[博客园Miss When...](http://www.cnblogs.com/liukemng/)
+---
 ###一、SpringMVC初识
 SpringMVC 具有基于注解的controller（其action的声明据说与.net MVC相似）。它属于SpringFrameWork的后续产品，提供了构建 Web 应用程序的全功能 MVC 模块，与Struts2一样是一种优秀MVC框架，不同的是自Spring2.5引入了注解式controller及Spring 3以后的不断完善，使得采用SpringMVC框架开发结构清晰明了，效率大大提高。
 
