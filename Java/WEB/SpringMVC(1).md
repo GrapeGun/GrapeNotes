@@ -445,3 +445,70 @@ public String passwordBinderPost(@ModelAttribute("sessionaccountmodel") AccountM
 ```
 
 在上例中,由于在Controller上指定了@SessionAttributes,所以在@ModelAttribute("xxx")注解参数会直接在@SessionAttributes中查找名称为"xxx"的对象.
+
+#####7. ***@RequestBody*** 与 ***@ResponseBody***
+
+@RequestBody调用合适的MessageConvert来把非application/x-www-form-urlencoded请求中的内容转换为指定的对象,通常与@ResponseBody合用,@ResponseBody把指定的对象转换为合适的内容（请求头为Accept:application/json 则返回json数据）并返回。
+
+以下是一个使用ajax请求示例,需要导入jackson-core-asl与jackson-mapper-asl两个包.
+
+>Step1. AccountModel继承Serializable接口,并添加一个空的构造函数(为Jackson做转换)
+
+>Step2. Controller写Action
+
+```java
+/**
+ * 使用@RequestBody与@ResponseBody
+ */
+@RequestMapping(value="/requestbodybind",method={RequestMethod.GET})
+public String requestBodyBind(Model model){
+  model.addAttribute("accountmodel",new AccountModel());
+  return "requestbodybind";
+}
+@RequestMapping(value="/requestbodybind",method={RequestMethod.POST})
+public @ResponseBody AccountModel requestBodyBind(@RequestBody AccountModel accountModel){
+  return accountModel;
+}
+```
+
+>Step3. Jsp界面使用ajax请求
+
+```html
+<html>
+  <head>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Insert title here</title>
+  </head>
+  <body>
+    <form:form modelAttribute="accountmodel" method="post">   
+      用户名：<form:input path="username"/><br/>
+      密 码：<form:password path="password"/><br/>
+      <input type="button" id="submit" value="Submit" />
+    </form:form>     
+    <script type="text/javascript">
+      $(function() { 
+        alert("dddd");
+        $("#submit").click(function() {   
+                var postdata = '{"username":"' + $('#username').val() + '","password":"' + $('#password').val() + '"}';   
+            $.ajax({  
+                type : 'POST',  
+                contentType : 'application/json',  
+                url : 'http://localhost:8080/SpringMVCLesson/databind/requestbodybind',  
+                processData : false,  
+                dataType : 'json',  
+                data : postdata,  
+                success : function(data) {  
+                    alert('username : '+data.username+'\npassword : '+data.password);  
+                },  
+                error : function() {  
+                    alert('error...');  
+                }  
+            }); 
+        });
+        });
+    </script> 
+  </body>
+</html>
+```
