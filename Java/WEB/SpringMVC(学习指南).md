@@ -67,18 +67,82 @@ Servlet技术室java体系中开发Web应用的根本,Servlet是 **运行在Serv
 
 其实看到这里,我还是不太明白,怎么个把B **注入**到A中.接下来就是注入的实现方式了:
 
-1.setter
+1.1setter
 ```java
 // Spring首先创建B实现类的对象b,再创建A,通过setter将b注入
 public void setB(B b){ // 这样在使用B的方法中就不用操心B的实现类的问题了
     this.b = b;
 }
 ```
-2.构造方法
+1.2构造方法
 ```java
 public A(B b){
     this.b = b;
 }
 ```
-3.基于field方式
-2.5版本后,通过Autowired注解依赖注入(缺点是会对Spring产生依赖)
+1.3基于field方式
+```java
+//2.5版本后,通过Autowired注解依赖注入(缺点是会对Spring产生依赖)
+//org.springframework.context.ApplicationContext接口作为一个Spring控制反转容器
+//其实现有两种
+//ClassPathXmlApplicationContext: 在类加载路径中加载配置文件
+//FileSystemXmlApplicationContext: 从文件系统中加载配置文件
+ApplictationContext context = new ClassPathXmlApplicationContext(new String[]{"config1.xml","config2.xml"});
+// 通过getBean方法可以获得一个bean的实例
+Product product = context.getBean("product",Product.class);
+
+```
+
+#####2.控制反转器的使用
+Spring管理bean和依赖关系
+
+2.1通过构造器创建bean
+```xml
+<beans ....>
+  <bean name="product" class="packageName.bean.Product"/>
+</beans>
+```
+该bean告诉Spring使用默认的无参构造函数来创建Product的实例.注意若重载了无参构造,则需要显示写出无参构造函数.
+
+2.2通过工厂方法创建bean
+```xml
+<beans ....>
+  <bean id="calendar" class="java.util.Calendar" factory-method="getInstance"/>
+</beans>
+```
+上例使用的Calendar的getInstance()静态工厂方法创建了bean实例( **factory-method="getInstance"** 指出工厂方法)
+
+2.3销毁bean
+```xml
+<beans ....>
+  <bean id=".." class=".." destroy-method="whatWillDoBeforeDestroy"/>
+</beans>
+```
+使用 **destroy-method="destroyMethod"**设置一些类在被销毁前所能执行的一些方法.
+
+2.4带有参数的构造器
+```xml
+<!-- 通过指定构造器参数的名称 -->
+<bean id="featureProduct" class="packageName.bean.Product">
+  <constructor-arg name="name" value="Oil"/>
+  <constructor-arg name="description" value="The purest oil on the market"/>
+  <constructor-arg name="price" value="9.5">
+</bean>
+<!-- 通过指定构造器参数的索引 -->
+<!-- 该方法所有参数都必须传递. -->
+<bean id="featureProduct" class="packageName.bean.Product">
+  <constructor-arg index="0" value="Oil"/>
+  <constructor-arg index="1" value="The purest oil on the market"/>
+  <constructor-arg index="2" value="9.5">
+</bean>
+```
+以上的配置,可以调用Product类的带参数的构造方法
+```java
+public Product(String name,String description,String price){
+    this.name = name;
+    this.description = description;
+    this.price = price;
+}
+```
+
+2.5setter方式依赖注入
