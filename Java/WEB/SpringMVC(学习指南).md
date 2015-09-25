@@ -96,7 +96,7 @@ Product product = context.getBean("product",Product.class);
 #####2.控制反转器的使用
 Spring管理bean和依赖关系
 
-2.1通过构造器创建bean
+2.1 **通过构造器创建bean**
 ```xml
 <beans ....>
   <bean name="product" class="packageName.bean.Product"/>
@@ -104,7 +104,7 @@ Spring管理bean和依赖关系
 ```
 该bean告诉Spring使用默认的无参构造函数来创建Product的实例.注意若重载了无参构造,则需要显示写出无参构造函数.
 
-2.2通过工厂方法创建bean
+2.2 **通过工厂方法创建bean**
 ```xml
 <beans ....>
   <bean id="calendar" class="java.util.Calendar" factory-method="getInstance"/>
@@ -112,7 +112,7 @@ Spring管理bean和依赖关系
 ```
 上例使用的Calendar的getInstance()静态工厂方法创建了bean实例( **factory-method="getInstance"** 指出工厂方法)
 
-2.3销毁bean
+2.3 **销毁bean**
 ```xml
 <beans ....>
   <bean id=".." class=".." destroy-method="whatWillDoBeforeDestroy"/>
@@ -120,7 +120,7 @@ Spring管理bean和依赖关系
 ```
 使用 **destroy-method="destroyMethod"**设置一些类在被销毁前所能执行的一些方法.
 
-2.4带有参数的构造器
+2.4 **带有参数的构造器**
 ```xml
 <!-- 通过指定构造器参数的名称 -->
 <bean id="featureProduct" class="packageName.bean.Product">
@@ -145,4 +145,65 @@ public Product(String name,String description,String price){
 }
 ```
 
-2.5setter方式依赖注入
+2.5 **setter方式依赖注入**
+```xml
+<!-- 创建Address的bean -->
+<bean name="simpleAddress" class="packageName.bean.Address">
+  <constructor-arg name="city" value="Beijing"/>
+  <constructor-arg name="state" value="NY"/>
+  <constructor-arg name="zipCode" value="100000"/>
+  <constructor-arg name="country" value="CN"/>
+</bean>
+
+<!-- 创建Employee的bean,引用Address的bean -->
+
+<bean name="fgn1" class="packageName.bean.Employee">
+  <property name="homeAddress" ref="simpleAddress"/>
+  <property name="firstName" value="Fu"/>
+  <property name="lastName" value="Guonan"/>
+</bean>
+```
+下面是Employee类与Address类,其中Employee类依赖于Address类.这里我只写出两个累的构造方法,其它基本就是一些setter和getter.
+```java
+/**
+ * Employee
+ */
+public class Employee{
+    //  field
+    //  无参构造方法
+    public Employee(){}
+    //  构造方法,注意Address是一个引用
+    public Employee(String firstName,String lastName,Address address){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+    }
+    //setters,getters and toString
+} 
+
+/**
+ * Address
+ */
+public class Address{
+    //...
+    public Address(Stirng city,String state,Stirng zipCode,Stirng country){
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.country = country;
+    }
+}
+```
+以上创建fgn1员工bean时,通过设置property属性(即使用setter方法)来创建
+
+2.6 **构造器方式依赖注入**
+```xml
+<bean name="fgn2" class="packageName.bean.Employee">
+  <constructor-arg name="homeAddress" ref="simpleAddress"/>
+  <constructor-arg name="firstName" value="Fu"/>
+  <constructor-arg name="lastName" value="Guonan"/>
+</bean>
+```
+构建fgn2的bean时,使用constructor-arg,通过构造方法注入.
+
+###三、Spring MVC模式
