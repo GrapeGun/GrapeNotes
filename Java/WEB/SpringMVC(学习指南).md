@@ -207,3 +207,126 @@ public class Address{
 构建fgn2的bean时,使用constructor-arg,通过构造方法注入.
 
 ###三、Spring MVC模式
+开发一个SpringMMVC的应用程序,需要编写一个Dispather servlet和控制类,其中,
+Dispatcher servlet 需要完成以下任务(Spring MVC中提供了一个Dispatcher servlet,不需要额外开发):
+
++ 根据URI调用相应的action
++ 实例化正确的控制器类
++ 根据请求参数值来构造表单bean
++ 调用控制器对象的相应方法
++ 转向一个视图(JSP页面)
+
+#####1. Spring MVC的DispatcerServlet
+这个在之前的笔记中有提到过,这里稍微再来重复记忆一下
+```xml
+<servlet>
+    <!-- 必须有一个servlet-mapping来设置映射 -->
+    <servlet-name>springmvc</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+    <!-- 对springmvc-servlet的映射设置 -->
+    <servlet-name>springmvc</servlet-name>
+    <url-pattern>/</url-pattern>
+</servlet-mapping>
+```
+这里需要说明的是,Dispatcher servlet在初始化时会去查找WEB-INF木里县的配置文件,该配置文件应该具有如下的命名规则:
+>servletName-serlet.xml
+
+在上面的设置中,DispatcherServlet的名称为springmvc,那么这个文件应该命名为 **springmvc-serlet**
+
+>>>当然也是可以将配置文件放置在应用程序的任意位置,用`init-param`的`contextConfigLocation`指定配置文件路径即可.
+
+```xml
+<servlet>
+    <servlet-name>springmvc</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/config/springmvc-comfig.xml</param-value>
+    </init-param>
+    <loat-on-startup></loat-on-startup>
+</servlet>
+```
+
+#####2. Controller接口(传统控制器风格)
+spring2.5之前:实现org.springframework.web.servlet.mvc.Controller接口,该接口公开方法:
+```java
+ModelAndView handleRequest(HttpServletRequest request,HttpServletResponse response)
+```
+
+#####3. View Resolver
+视图解析器,可以在配置文件中定义,功能是解析视图
+```xml
+<bean id="viewResolver" class="org.springframework.web.servlet.InternalResourceViewResolver">
+    <property name="prefix" value="/jsp/"/>
+    <property name="suffix" value=".jsp"/>
+</bean>
+```
+经过这样的设置后,view的路径将会缩短(写起来),如/jsp/product_input.jsp可直接写为product_input
+
+###四、基于注解的控制器
+使用基于注解的控制器,具有以下优点
+
++ 一个控制器可以理解多个动作,可以将相关的操作写在同一个控制器类,从而减少应用程序中类的数量
++ 请求映射不需要存储在配置文件中,`RequestMapping` 可以对一个方法进行请求处理
+
+#####1.Controller注解类型
+`org.springframework.steretype.Controller`该注解用于指示Spring类的实例是一个控制器.Spring通过扫描机制来找到应用程序中所有基于注解的控制器类.
+
+以下两步,可以保证Spring找到控制器.
+
++ 在spring配置文件中声明spring-context
+
+```xml
+<beans
+    ...
+    xmlns:context="http://www.springframework.org/schema/context"
+>
+```
+
++ 使用component-scan元素扫描
+
+```xml
+<beans 
+    ...
+>
+    <context:component-scan base-package="com.example.controller"></context>
+</beans>
+```
+
+#####2.RequestMapping注解类型
+RequestMapping注解类型的作用是映射一个请求和一个方法,被RequestMapping修饰的方法,将会由调度程序在接收到对应的URL请求时调用.如
+
+```java
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annoation.RequestMapping;
+@Controller
+public class CustomerController{
+    @RequestMapping("/customer_input")
+    public String inputCustomer(){
+        // do something here
+        return "CustomrForm"
+    }
+}
+```
+这样可以使用`http://domain/context/customer_input`来访问inputCustomer方法.
+
+RequestMapping可以用来注解一个控制器类,这种情况下所有的方法都将映射为相对于类级别的请求.如
+
+```java
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annoation.RequestMapping;
+@Controller
+@RequestMapping(value="/customer")
+public class CustomerController{
+    @RequestMapping(value="/delete" method={RequestMethod.POST,RequestMethod.PUT})
+    public String deleteCustomer(){
+        // do something here
+        return "..."
+    }
+}
+```
+这样,访问deleteCustomer的url为:`http://domain/context/customer/delete`
+
