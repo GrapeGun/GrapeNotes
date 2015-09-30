@@ -330,3 +330,34 @@ public class CustomerController{
 ```
 这样,访问deleteCustomer的url为:`http://domain/context/customer/delete`
 
+#####3. 请求处理的方法
+一个处理请求的方法一般具有如下的格式
+
+```java
+@RequestMapping(value="/uri")
+public String myMethod(HttpSession session){
+    //do something here
+    session.addAttribute(key,value)
+}
+```
+
+其中,该方法的参数可以有多种不同的类型,返回结果同样具有多种类型
+
++ 在请求方法中常出现的参数类型
+ - javax.servlet.ServletRequest或javax.servlet.http.HttpServletRequest
+ - javax.servlet.ServletResponse或javax.servlet.http.HttpServletResponse
+ - javax.servlet.http.HttpSession
+ - java.util.Map/org.springframework.ui.Model/
+ - 命令或者表单对象
+ - @PathVariable,@MatrixVariable注解的对象
+ - @RequestParam,@RequestHeader,@RequestBody,@RequestPart
+
++ 请求方法的常用返回类型
+ - ModelAndView
+ - Model
+ - Map 包含模型的属性
+ - View
+ - 代表逻辑视图名的String
+ - void
+
+
