@@ -32,7 +32,7 @@ lastName=Bob&firstName=Mike     ***请求正文,与头信息之间空一行***
 
 #####3.HTTP响应
 同样包含三个部分: ***协议-状态码-描述***,***响应头信息***,***响应正文***
-```
+```xml
 HTTP/1.1 200 OK     200为响应成功 OK描述
 Server:
 Date:
@@ -330,3 +330,102 @@ public class CustomerController{
 ```
 这样,访问deleteCustomer的url为:`http://domain/context/customer/delete`
 
+#####3. 请求处理的方法
+一个处理请求的方法一般具有如下的格式
+
+```java
+@RequestMapping(value="/uri")
+public String myMethod(HttpSession session){
+    //do something here
+    session.addAttribute(key,value)
+}
+```
+
+其中,该方法的参数可以有多种不同的类型,返回结果同样具有多种类型
+
++ 在请求方法中常出现的参数类型
+ - javax.servlet.ServletRequest或javax.servlet.http.HttpServletRequest
+ - javax.servlet.ServletResponse或javax.servlet.http.HttpServletResponse
+ - javax.servlet.http.HttpSession
+ - java.util.Map/org.springframework.ui.Model/
+ - 命令或者表单对象
+ - @PathVariable,@MatrixVariable注解的对象
+ - @RequestParam,@RequestHeader,@RequestBody,@RequestPart
+
++ 请求方法的常用返回类型
+ - ModelAndView
+ - Model
+ - Map 包含模型的属性
+ - View
+ - 代表逻辑视图名的String
+ - void
+
+注意无论是否会被使用,SpringMVC综合司会在每一个请求处理方法被调用时创建一个org.springframework.ui.Model实例,用于增加需要显示在视图中的属性.
+
+#####4. @Autowired和@Service
+将依赖注入到SpringMVC控制器中,可以通过@Autowired注解到字段或者方法上.为了能被作为注入依赖,类则必须要声明为@Service,@Service注解的类所在的包需要在配置文件中使用`<content:component-scan/>`元素,来扫描依赖基本包.
+
+>Step1 一般先创建Service接口
+
+```java
+package **.service
+import **.domain.Procuct;
+pulbic interface ProductService {
+    Product add(Product product);
+    Product get(long id);
+}
+```
+
+>Step2 实现接口类(注意使用@Service注解)
+
+```java
+package **.service.impl
+import **.service.ProductService;
+import **.domain.Product;
+import org.springframework.stereotype.Service;
+@Service
+public class ProductServiceImpl implements ProductService{
+    //Override
+    public Product add(Product product){
+        // do something here;
+    }
+    //Override
+    public Product get(Long id){
+        // do something here;
+    }
+}
+```
+
+>Step3 使用@Autowired依赖注入
+
+```java
+package **
+improt **;
+@Controller
+public class ProductController{
+    /*
+     * 这样,我们在这里只需要给出一个接口声明
+     * 具体是哪个实现类则不需要我们管理
+     */
+    //...
+    @Autowired
+    private ProdctService productService;
+    //...
+}
+```
+
+>Step4 save产品后防止用户重新操作,重定向
+
+```java
+// 修改Controller中的saveProduct方法
+// 重定向不能用Model了哦
+// 要使用RedirectAtrributes
+@RequestMapping(value = "/product_save" method = RequestMethod.POST)
+public String saveProduct(ProductForm productForm,RedirectAttributes ra){
+    //...
+    //添加到ra中
+    ra.addFlashAttribute("message","blahblah");
+    // 返回重定向字符
+    return "redirect:/product_view";
+}
+```
