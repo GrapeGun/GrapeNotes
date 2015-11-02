@@ -172,21 +172,27 @@ return;
 + **exception** 异常对象 (1指定errorPage 2errorPage的isErrorPage设为true)
 
 ###4.JSP动作标签
-+ 与存取JavaBean相关:<jsp:useBeans> <jsp:setProperty> <jsp:getProperty>
-+ 基本元素 <jsp:include> <jsp:forword> <jsp:param> <jsp:plugin> <jsp:params> <jsp:fallback>
-+ 与JSP Document相关 <jsp:root> <jsp:declaration> <jsp:scriptlet> <jsp:expression> <jsp:text> <jsp:output>
-+ 生成XML元素 <jsp:attribute> <jsp:body> <jsp:element>
-+ 用在Tag File中 <jsp:invoke> <jsp:dobody>
++ 与存取JavaBean相关:`<jsp:useBeans> <jsp:setProperty> <jsp:getProperty>`
++ 基本元素 `<jsp:include> <jsp:forword> <jsp:param> <jsp:plugin> <jsp:params> <jsp:fallback>`
++ 与JSP Document相关 `<jsp:root> <jsp:declaration> <jsp:scriptlet> <jsp:expression> <jsp:text> <jsp:output>`
++ 生成XML元素 `<jsp:attribute> <jsp:body> <jsp:element>`
++ 用在Tag File中 `<jsp:invoke> <jsp:dobody>`
 
 ####4.1 jsp:userBeans
+```html
 <jsp:useBeans id="myUser" class="com.po.Users" scope="page"/>
+```
 ####4.2 jsp:setProperty
+```html
 <jsp:setProperty name="myUser" property="username"/>
 <jsp:setProperty name="myUser" property="*"/>
 <jsp:setProperty name="myUser" property="username" value="指定值"/>
+```
 ####4.3 jsp:getPropery
+```html
 <jsp:getProperty name="myUser" property="username"/>
 <jsp:getProperty name="myUser" property="password"/>
+```
 ####4.4 JavaBean 作用于范围scope
 + page
 + request
@@ -229,7 +235,7 @@ session与cookie对比
 
 ###7.include指令与动作
 + 指令:<%@include file="URL"%> 其中file是要包含的页面
-+ 动作: <jsp:include page="URL" flush="true|false"/> 其中page要包含的页面,flush被包含的页面是否从缓冲区读取
++ 动作: `<jsp:include page="URL" flush="true|false"/>` 其中page要包含的页面,flush被包含的页面是否从缓冲区读取
 
 两者区别
 
@@ -242,10 +248,10 @@ session与cookie对比
 | 执行时间 | 稍快 | 较慢 |
 
 ###8.foword动作
-<jsp:forward page="URL"/>
+`<jsp:forward page="URL"/>`
 等同与request.getRequestDispatcher("url").forward(request,response);
 
 ###9.param动作
-<jsp:param name="参数名" value="参数值">
+`<jsp:param name="参数名" value="参数值">`
 一般与jsp:forward一起使用,作为其子标签
 
