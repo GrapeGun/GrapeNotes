@@ -178,7 +178,7 @@ return;
 + 生成XML元素 `<jsp:attribute> <jsp:body> <jsp:element>`
 + 用在Tag File中 `<jsp:invoke> <jsp:dobody>`
 
-####4.1 jsp:userBeans
+####4.1 jsp:useBeans
 ```html
 <jsp:useBeans id="myUser" class="com.po.Users" scope="page"/>
 ```
@@ -247,7 +247,7 @@ session与cookie对比
 | 编译时间 | 较慢 | 较快 |
 | 执行时间 | 稍快 | 较慢 |
 
-###8.foword动作
+###8.forward动作
 `<jsp:forward page="URL"/>`
 等同与request.getRequestDispatcher("url").forward(request,response);
 
